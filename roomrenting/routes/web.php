@@ -32,7 +32,6 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('createroom.edit');
         Route::put('edit/{id}', 'update')->name('createroom.update');
         Route::delete('destroy/{id}', 'destroy')->name('createroom.destroy');
-        Route::get('/api/rooms', [CreateRoomController::class, 'getAllRooms']);
 
         
     });

@@ -12,8 +12,9 @@ class CreateRoomController extends Controller
      */
     public function index()
     {
-        $rooms = CreateRoom::orderBy('created_at', 'DESC')->get();
-        return response()->json($rooms);
+        $product = CreateRoom::orderBy('created_at', 'DESC')->get();
+  
+        return view('createroom.index', compact('product'));
     }
 
 
@@ -89,9 +90,5 @@ class CreateRoomController extends Controller
         return redirect()->route('createroom')->with('success', 'Room deleted successfully');
     }
 
-    public function getAllRooms()
-    {
-        $rooms = CreateRoom::all();
-        return response()->json($rooms);
-    }
+   
 }
