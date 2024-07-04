@@ -31,19 +31,11 @@ class CreateRoomController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation (optional, but recommended)
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'product_code' => 'required|string|max:255|unique:createroom',
-            'description' => 'required|string',
-        ]);
-
-        // Create new room
-        CreateRoom::create($request->all());
-
-        // Return response
-        return response()->json(['message' => 'Room added successfully'], 201);
+        {
+            CreateRoom::create($request->all());
+     
+            return redirect()->route('createroom')->with('success', 'Room added successfully');
+        }
     }
 
     /**

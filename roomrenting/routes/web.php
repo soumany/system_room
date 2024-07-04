@@ -3,10 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreateRoomController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('rooms', [UserController::class, 'index'])->name('user.index');
+Route::get('rooms/{id}', [UserController::class, 'show'])->name('user.show');
+
  
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
