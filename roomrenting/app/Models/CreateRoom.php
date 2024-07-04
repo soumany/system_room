@@ -13,6 +13,7 @@ class CreateRoom extends Model
         'title',
         'price',
         'product_code',
-        'description'
+        'description',
+        'image_url'
     ];
 }

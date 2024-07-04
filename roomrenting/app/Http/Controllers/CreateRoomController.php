@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CreateRoom;
-
+use Illuminate\Support\Facades\Storage; 
 class CreateRoomController extends Controller
 {
     /**
@@ -29,14 +29,28 @@ class CreateRoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        {
-            CreateRoom::create($request->all());
-     
-            return redirect()->route('createroom')->with('success', 'Room added successfully');
-        }
+    
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required',
+        'product_code' => 'required',
+        'description' => 'required',
+        'price' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $data = $request->all();
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('room_images', 'public');
+        $data['image_url'] = Storage::url($path);
     }
+
+    CreateRoom::create($data);
+
+    return redirect()->route('createroom')->with('success', 'Room created successfully');
+}
 
     /**
      * Display the specified resource.
@@ -61,14 +75,36 @@ class CreateRoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $product = CreateRoom::findOrFail($id);
+    
+public function update(Request $request, $id)
+{
+    $room = CreateRoom::findOrFail($id);
 
-        $product->update($request->all());
+    $request->validate([
+        'title' => 'required',
+        'product_code' => 'required',
+        'description' => 'required',
+        'price' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        return redirect()->route('createroom')->with('success', 'Room updated successfully');
+    $data = $request->all();
+
+    if ($request->hasFile('image')) {
+        // Delete the old image if exists
+        if ($room->image_url) {
+            $oldImagePath = str_replace('/storage', '', $room->image_url);
+            Storage::disk('public')->delete($oldImagePath);
+        }
+
+        $path = $request->file('image')->store('room_images', 'public');
+        $data['image_url'] = Storage::url($path);
     }
+
+    $room->update($data);
+
+    return redirect()->route('createroom.index')->with('success', 'Room updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.

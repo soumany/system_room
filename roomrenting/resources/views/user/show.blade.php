@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Room Details')
 
@@ -10,4 +10,5 @@
         <p>{{ $room->description }}</p>
     </div>
     <a href="{{ route('user.index') }}" class="btn btn-primary">Back to Rooms</a>
+    <a href="{{ route('user.index') }}" class="btn btn-primary">Booking</a>
 @endsection

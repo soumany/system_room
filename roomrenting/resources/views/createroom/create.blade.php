@@ -23,6 +23,11 @@
                 <textarea class="form-control" name="description" placeholder="Descriptoin"></textarea>
             </div>
         </div>
+        <div class="row mb-3">
+        <div class="col">
+                <input type="file" name="image" class="form-control" id="image" placeholder="Upload image">
+            </div>
+        </div>
  
         <div class="row">
             <div class="d-grid">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Available Rooms')
 
@@ -8,8 +8,13 @@
     <div class="row">
         @if($rooms->count() > 0)
             @foreach($rooms as $room)
-                <div class="col-md-4 mb-4">
-                    <div class="card">
+                <div class="col-md-2 mb-2">
+                    <div class="card" style="width: 300px;"> <!-- Adjust width as needed -->
+                        @if($room->image_url)
+                            <img src="{{ $room->image_url }}" class="card-img-top" alt="{{ $room->title }}">
+                        @else
+                            <img src="default-image-path.jpg" class="card-img-top" alt="Default Image">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $room->title }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Price: {{ $room->price }}</h6>
