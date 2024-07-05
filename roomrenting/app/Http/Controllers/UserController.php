@@ -21,10 +21,10 @@ class UserController extends Controller
         return view('user.index', compact('rooms')); // Return the view with rooms data
     }
 
-    public function book(Request $request, string $id)
+    public function book($id)
     {
-        $room = CreateRoom::findOrFail($id);
-        $user = $request->user(); // assuming the user is authenticated
+        $room = CreateRoom::find($id);
+        $user = auth()->guard('user')->user();
 
         // Send booking email to admin
         Mail::to('soumany06@gmail.com')->send(new BookingMail($room, $user));

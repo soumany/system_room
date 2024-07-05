@@ -45,10 +45,13 @@ Route::controller(UserAuthController::class)->prefix('user')->group(function () 
 
 Route::middleware('auth:user')->group(function () {
     Route::get('rooms', [UserController::class, 'index'])->name('user.index');
+    Route::get('rooms/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::post('rooms/{id}/book', [UserController::class, 'book'])->name('user.book');
     Route::get('user/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
 });
+
 
 // Admin auth routes
 Route::controller(AuthController::class)->group(function () {
