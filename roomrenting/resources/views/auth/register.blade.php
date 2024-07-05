@@ -13,16 +13,33 @@
   
   <!-- Custom styles for this template-->
   <link href="{{ asset('admin_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fc; /* Optional: Add a light gray background */
+    }
+    .custom-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .custom-card {
+      max-width: 400px; /* Set maximum width */
+      padding: 20px; /* Adjust padding as needed */
+    }
+    .custom-card-body {
+      padding: 1rem; /* Adjust padding as needed */
+    }
+  </style>
 </head>
 <body class="bg-gradient-primary">
-  <div class="container">
-    <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
+  <div class="custom-container">
+    <div class="card o-hidden border-0 shadow-lg custom-card">
+      <div class="card-body custom-card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
+          <div class="col-lg-12">
+            <div class="p-4">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
