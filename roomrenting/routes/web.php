@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreateRoomController;
 use App\Http\Controllers\UserController;
 use App\Mail\TestMail;
+use App\Mail\BookingMail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\UserAuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,11 +23,34 @@ Route::get("/email-1", function(){
     dd("Email Send Successfully");
 });
 
+//booking mail 
 
+Route::get('rooms/{id}', [UserController::class, 'show'])->name('user.show');
+Route::post('rooms/{id}/book', [UserController::class, 'book'])->name('user.book');
+Route::get('booking/response', [UserController::class, 'handleBookingResponse'])->name('booking.response');
+
+//
 Route::get('rooms', [UserController::class, 'index'])->name('user.index');
 Route::get('rooms/{id}', [UserController::class, 'show'])->name('user.show');
 
- 
+// user auth route
+Route::controller(UserAuthController::class)->group(function () {
+    Route::get('user/register', 'register')->name('user.register');
+    Route::post('user/register', 'registerSave')->name('user.register.save');
+
+    Route::get('user/login', 'login')->name('user.login');
+    Route::post('user/login', 'loginAction')->name('user.login.action');
+
+    Route::get('user/logout', 'logout')->middleware('auth')->name('user.logout');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('user/dashboard', function () {
+        return view('user.dashboard');
+    })->name('user.dashboard');
+});
+
+// admin auth route
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
     Route::post('register', 'registerSave')->name('register.save');

@@ -10,5 +10,9 @@
         <p>{{ $room->description }}</p>
     </div>
     <a href="{{ route('user.index') }}" class="btn btn-primary">Back to Rooms</a>
-    <a href="{{ route('user.index') }}" class="btn btn-primary">Booking</a>
+    
+    <form action="{{ route('user.book', $room->id) }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-primary">Booking</button>
+    </form>
 @endsection
