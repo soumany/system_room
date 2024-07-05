@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Request</title>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+    </style>
 </head>
 <body>
     <h3>New Booking Request</h3>
