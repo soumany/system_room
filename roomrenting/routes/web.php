@@ -4,9 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreateRoomController;
 use App\Http\Controllers\UserController;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//First Email - simple Email
+Route::get("/email-1", function(){
+    $name = "Sanjay";
+    $from = "Online Web Tutor";
+
+    Mail::to("tobteng003@gmail.com")->send(new TestMail(compact("name", "from")));
+
+    dd("Email Send Successfully");
 });
 
 
