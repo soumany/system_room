@@ -6,6 +6,7 @@ use App\Mail\BookingMail;
 use App\Models\CreateRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingResponseMail;
 
 class UserController extends Controller
 {
@@ -33,19 +34,15 @@ class UserController extends Controller
     }
 
     public function handleBookingResponse(Request $request)
-    {
-        $room = CreateRoom::findOrFail($request->id);
-        $user = $room->user; // Assuming the room model has a relationship with the user
+{
+    $room = CreateRoom::findOrFail($request->id);
+    $userEmail = 'tobteng003@gmail.com'; // Replace with the fixed user email address
 
-        $response = $request->response;
-        $subject = $response == 'accept' ? 'Booking Accepted' : 'Booking Rejected';
+    $response = $request->response;
 
-        // Send response email to user
-        Mail::raw("Your booking request for room \"{$room->title}\" has been {$response}ed.", function ($message) use ($user, $subject) {
-            $message->to($user->email)
-                    ->subject($subject);
-        });
-        
-        return redirect()->route('dashboard')->with('success', "Booking {$response}ed!");
-    }
+    // Send response email to user
+    Mail::to($userEmail)->send(new BookingResponseMail($room, $response));
+
+    return redirect()->route('dashboard')->with('success', "Booking {$response}ed!");
+}
 }
