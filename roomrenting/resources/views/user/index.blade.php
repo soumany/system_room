@@ -8,8 +8,8 @@
     <div class="row">
         @if($rooms->count() > 0)
             @foreach($rooms as $room)
-                <div class="col-md-2 mb-2">
-                    <div class="card" style="width: 300px;"> <!-- Adjust width as needed -->
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-3"> <!-- Adjust column width to control spacing -->
+                    <div class="card" style="width: 100%;"> <!-- Adjust card width as needed -->
                         @if($room->image_url)
                             <img src="{{ $room->image_url }}" class="card-img-top" alt="{{ $room->title }}">
                         @else
